@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="text-secondary small pb-5">
+    <p>Queremos expresar nuestro m&aacute;s sincero agradecimiento por dedicar
+        tiempo para escribirnos.</p>
+    <p>Cada mensaje que recibimos es le&iacute;do por nosotros, los padres de Bruno, y
+        publicado en nuestra p&aacute;gina principal.</p>
+    <p>Tus palabras nos brindan aliento y nos ayudan a mantener viva la memoria de
+        nuestro hijo, record&aacute;ndolo siempre con amor inmenso.</p>
+    <p>Creemos firmemente que, desde el cielo, Bruno también siente la calidez y
+        bondad de tus gestos hacia nosotros.</p>
+    <p>Te deseamos una vida repleta de alegr&iacute;as y bendiciones.</p>
+    <p class="mb-0">Con gratitud, Hilda y Mario.</p>
+</div>
+<h2 class="text-center h4">Escribe tu mensaje 📝</h2>
+<div id="new-comment" class="py-3">
+    <form class="pt-3" action="{% url 'new_comment' %}" method="post">{% csrf_token %}
+        <div class="pb-3">
+            <label for="id_author" class="form-label">Nombre</label>
+            <input type="text" name="author" id="id_author" required
+                   class="form-control {% if form.author.errors %} is-invalid {% endif %}"
+                   value="{% if form.author.value %}{{ form.author.value }}{% endif %}">
+            {% if form.author.errors %}
+            {% for error in form.author.errors %}
+            <div class="invalid-feedback">{{ error | escape }}</div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div class="pb-3">
+            <label for="id_comment" class="form-label">Mensaje</label>
+            <textarea name="comment" id="id_comment" rows="5" required
+                      class="form-control {% if form.comment.errors %} is-invalid {% endif %}">{% if form.comment.value %}{{ form.comment.value }}{% endif %}</textarea>
+            {% if form.comment.errors %}
+            {% for error in form.comment.errors %}
+            <div class="invalid-feedback">{{ error | escape }}</div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a class="btn btn-link" href="{% url 'index' %}">Regresar</a>
+            <button type="submit" name="submit" class="btn btn-primary">Enviar</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

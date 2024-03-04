@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- <h2 class="text-center h4">Mensajes 📝</h2> -->
+<p class="text-center">
+    <a href="{% url 'new_comment' %}"><small>Publica tu mensaje aqu&iacute;</small></a>
+</p>
+<div id="comments" class="p-3">
+    {% for el in comment_list %}
+    <article id="comment-{{ el.pk }}" class="border rounded bg-white row mb-4 p-3">
+        <div class="col-1">
+            <span class="h3">🕊️</span>
+        </div>
+        <div class="col">
+            {{ el.comment | linebreaks }}
+            <p class="text-secondary mt-n3 mb-0">
+                <small>{{ el.author }}</small>
+            </p>
+        </div>
+    </article>
+    {% empty %}
+    <article id="no-comments" class="text-center pb-5">
+        <p>No hay comentarios publicados.</p>
+    </article>
+    {% endfor %}
+</div>
+{% endblock %}
